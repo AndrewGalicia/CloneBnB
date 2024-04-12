@@ -1,5 +1,6 @@
 import Container from "../Container/Container"
 import Logo from "./Logo"
+import Search from "./Search"
 export default function Navbar() {
     return(
         <div className="fixed w-full bg-white z-10 shadow-sm">
@@ -15,6 +16,7 @@ export default function Navbar() {
                     "
                     >
                         <Logo/>
+                        <Search/>
 
                     </div>
 

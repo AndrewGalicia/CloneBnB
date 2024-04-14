@@ -159,7 +159,10 @@ export default function Modal({
               {/* footer */}
               <div className='flex flex-col gap-2 p-6'>
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <Button/>
+                    {secondaryAction && secondaryLabel && (
+                        <Button disabled={disabled} label= {secondaryLabel} onClick={handleSecondaryAction} />
+                        )}
+                    <Button disabled={disabled} label= {actionLabel} onClick={handleSubmit} />
                 </div>
               </div>
                

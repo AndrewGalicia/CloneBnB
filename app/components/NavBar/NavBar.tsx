@@ -4,7 +4,11 @@ import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
 
-export default function Navbar() {
+interface NavBarProps {
+    currentUser?: User | null;
+}
+
+export default function Navbar( {currentUser}: NavBarProps) {
     return(
         <div className="fixed w-full bg-white z-10 shadow-sm">
             <div className="py-4 border-b-[1px]">
@@ -20,7 +24,7 @@ export default function Navbar() {
                     >
                         <Logo/>
                         <Search/>
-                        <UserMenu/>
+                        <UserMenu currentUser={currentUser}/>
 
                     </div>
 

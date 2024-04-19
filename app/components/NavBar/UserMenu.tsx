@@ -1,12 +1,26 @@
 'use client'
+
+// UserMenu component
+
+// Import necessary dependencies
 import {AiOutlineMenu} from 'react-icons/ai';
 import Avatar from '../Avatar';
-import MenuItem from './MenuItem';
+import MenuItem from './MenuItem'; // Import MenuItem component
 import { useCallback, useState} from 'react';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { signOut } from 'next-auth/react';
 
-export default function UserMenu() {
+// Define UserMenuProps interface
+interface UserMenuProps {
+    currentUser?: User | null
+}
+
+// Define UserMenu component
+export default function UserMenu({currentUser}: UserMenuProps) {
+    // Define state variables and event handlers
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
@@ -15,6 +29,7 @@ export default function UserMenu() {
     return (
         <div className="relative">
             <div className="flex items-center gap-3">
+                {/* Bearbnb your cave section */}
                 <div
                     onClick={() => {
                         // Handle click logic here
@@ -34,6 +49,7 @@ export default function UserMenu() {
                 >
                     Bearbnb your cave
                 </div>
+                {/* Menu toggle section */}
                 <div
                     onClick={toggleOpen}
                     className="
@@ -48,7 +64,6 @@ export default function UserMenu() {
                         gap-3
                         rounded-full
                         cursor-pointer
-                        hover:shadow-md
                         transition
                     "
                 >
@@ -58,6 +73,7 @@ export default function UserMenu() {
                     </div>
                 </div>
             </div>
+            {/* Menu items section */}
             {isOpen && (
                 <div
                     className='
@@ -74,19 +90,50 @@ export default function UserMenu() {
                     '
                 >
                     <div className='flex flex-col cursor-pointer'>
-                        <MenuItem
-                            onClick={() => {
-                                // Handle click logic here
-                            }}
-                            label="Login"
-                        />
-                        <MenuItem
-                            onClick={registerModal.onOpen}
-                            label="Sign Up"
-                        />
+                        {currentUser ? (
+                             <>
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="My Trips"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="My Favorites"
+                                />
+                                <MenuItem
+                                    onClick={()=> {}}
+                                    label="My reservations"
+                                />
+                                <MenuItem
+                                    onClick={()=> {}}
+                                    label="My caves"
+                                />
+                                <MenuItem
+                                    onClick={()=> {}}
+                                    label="Bearbnb my home"
+                                />
+                                <hr />
+                                <MenuItem
+                                    onClick={()=> signOut()}
+                                    label="Logout"
+                                />
+                         </>
+                        ) : (
+                          <>
+                                <MenuItem
+                                    onClick={loginModal.onOpen}
+                                    label="Login"
+                                />
+                                <MenuItem
+                                    onClick={registerModal.onOpen}
+                                    label="Sign Up"
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
             )}
         </div>
     );
 }
+

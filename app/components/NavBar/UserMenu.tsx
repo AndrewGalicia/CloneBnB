@@ -10,10 +10,11 @@ import { useCallback, useState} from 'react';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { signOut } from 'next-auth/react';
+import { SafeUser } from '@/app/Types';
 
 // Define UserMenuProps interface
 interface UserMenuProps {
-    currentUser?: User | null
+    currentUser?: SafeUser | null
 }
 
 // Define UserMenu component

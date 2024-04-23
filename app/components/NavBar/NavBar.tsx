@@ -3,9 +3,10 @@ import Container from "../Container/Container"
 import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
+import { SafeUser } from '@/app/Types'
 
 interface NavBarProps {
-    currentUser?: User | null;
+    currentUser?: SafeUser | null;
 }
 
 export default function Navbar( {currentUser}: NavBarProps) {

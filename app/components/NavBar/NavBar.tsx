@@ -3,6 +3,7 @@ import Container from "../Container/Container"
 import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
+import Categories from "./categories"
 import { SafeUser } from '@/app/Types'
 
 interface NavBarProps {
@@ -31,6 +32,7 @@ export default function Navbar( {currentUser}: NavBarProps) {
 
                 </Container>
             </div>
+            <Categories/>
         </div>
     )
 }

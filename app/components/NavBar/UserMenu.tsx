@@ -11,6 +11,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/app/Types';
+import useRentModal from '@/app/hooks/useRentModal';
 
 // Define UserMenuProps interface
 interface UserMenuProps {
@@ -22,19 +23,25 @@ export default function UserMenu({currentUser}: UserMenuProps) {
     // Define state variables and event handlers
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+    const rentModal = useRentModal();
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
     }, []);
+
+    const onRent = useCallback(() => {
+        if(!currentUser) {
+            return loginModal.onOpen();
+         }
+         rentModal.onOpen()
+        }, [currentUser, loginModal, rentModal])
 
     return (
         <div className="relative">
             <div className="flex items-center gap-3">
                 {/* Bearbnb your cave section */}
                 <div
-                    onClick={() => {
-                        // Handle click logic here
-                    }}
+                    onClick={onRent}
                     className="
                         hidden
                         md:block
@@ -110,7 +117,7 @@ export default function UserMenu({currentUser}: UserMenuProps) {
                                     label="My caves"
                                 />
                                 <MenuItem
-                                    onClick={()=> {}}
+                                    onClick={rentModal.onOpen}
                                     label="Bearbnb my home"
                                 />
                                 <hr />

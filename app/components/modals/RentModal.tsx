@@ -40,9 +40,9 @@ const RentModal = () => {
         defaultValues: {
             category:  '',
             location: null,
-            guestCount: 1,
-            roomCount: 1,
-            bathroomCount: 1,
+            guestCount: 0,
+            roomCount: 0,
+            bathroomCount: 0,
             imageSrc: '',
             price: 1,
             title:'',
@@ -52,6 +52,9 @@ const RentModal = () => {
 
     const category = watch('category')
     const location = watch('location')
+    const guestCount= watch('guestCount')
+    const roomCount= watch('roomCount')
+    const bathroomCount= watch('bathroomCount')
     const Map = useMemo(() => dynamic(() => import('../Map'), {
         ssr:false
     }), [location])
@@ -104,7 +107,7 @@ const RentModal = () => {
         overflow-y-auto
         ">
            
-        {categories.map((item) =>(
+        {categories.map((item) => (
             <div key={item.label} className="col-span-1">
                 <CategoryInput
                 onClick={(category)=>setCustomValue('category', category)}
@@ -143,8 +146,26 @@ const RentModal = () => {
                 />
                 <Counter
                     title="Number of guests"
-                    subtitle="how many guests"
+                    subtitle="how many bears do you allow"
+                    value={guestCount}
+                    onChange={(value) => setCustomValue('guestCount', value)}   
                     />
+                    <hr />
+                <Counter
+                    title="Number of rooms"
+                    subtitle="how many caverooms do you allow"
+                    value={roomCount}
+                    onChange={(value) => setCustomValue('roomCount', value)}   
+                    />
+                    <hr />
+                <Counter
+                    title="Number of bathrooms"
+                    subtitle="how many cave bathrooms do you allow"
+                    value={bathroomCount}
+                    onChange={(value) => setCustomValue('bathroomCount', value)}   
+                    />
+                    <hr />
+
             </div>
         )
     }

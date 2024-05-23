@@ -19,7 +19,7 @@ interface CountrySelectProps {
 export default function CountrySelect({ value, onChange }: CountrySelectProps) {
     const { getAll } = useCountries();
     return (
-        <div>
+        <div className='relative z-50'>
             <Select
                 placeholder="Anywhere"
                 isClearable
@@ -27,7 +27,7 @@ export default function CountrySelect({ value, onChange }: CountrySelectProps) {
                 value={value}
                 onChange={(v) => onChange(v as CountrySelectValue)} // Ensured correct type casting
                 formatOptionLabel={(option) => (
-                    <div className="flex flex-row items-center gap-3"> 
+                    <div className="flex flex-row items-center gap-3 z-50"> 
                         <div>{option.flag}</div>
                         <div>
                             {option.label},
@@ -39,6 +39,7 @@ export default function CountrySelect({ value, onChange }: CountrySelectProps) {
                     control: () => 'p-3 border-2',
                     input: () => 'text-lg',
                     option: () => 'text-lg',
+                    menu:() => 'z-50'
 
                 }}
 

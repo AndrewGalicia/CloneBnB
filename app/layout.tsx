@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -26,15 +25,14 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ClientOnly>
-          <ToasterProvider/>
-          <RentModal/>
-          <LoginModal/>
-          <RegisterModal/>
-          <NavBar currentUser={currentUser}/>
+          <ToasterProvider />
+          <RentModal />
+          <LoginModal />
+          <RegisterModal />
+          <NavBar currentUser={currentUser} />
         </ClientOnly>
-        <div className="pb-20 pt-29">
+        <div className="pt-24 pb-20"> {/* Adjusted padding for the main content */}
           {children}
-
         </div>
       </body>
     </html>

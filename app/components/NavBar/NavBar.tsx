@@ -3,7 +3,7 @@ import Container from "../Container/Container"
 import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
-import Categories from "./categories"
+import Categories from "./Categories"
 import { SafeUser } from '@/app/Types'
 
 interface NavBarProps {
@@ -11,7 +11,7 @@ interface NavBarProps {
 }
 
 export default function Navbar( {currentUser}: NavBarProps) {
-    return(
+    return (
         <div className="fixed w-full bg-white z-10 shadow-sm">
             <div className="py-4 border-b-[1px]">
                 <Container>
@@ -22,17 +22,16 @@ export default function Navbar( {currentUser}: NavBarProps) {
                         justify-between
                         gap-3
                         md:gap-0
-                    "
-                    >
-                        <Logo/>
-                        <Search/>
-                        <UserMenu currentUser={currentUser}/>
-
+                    ">
+                        <Logo />
+                        <Search />
+                        <UserMenu currentUser={currentUser} />
                     </div>
-
                 </Container>
             </div>
-            <Categories/>
+            <div className="pt-4 pb-4 border-b-[1px]">
+                <Categories /> {/* Ensure proper padding to avoid overlap */}
+            </div>
         </div>
     )
 }

@@ -82,7 +82,7 @@ export default function ListingCard({data,reservation,onAction, disabled, action
                                 />
                                 <div className="absolute top-3 right-3">
                                     <HeartButton
-                                        listingId={data.Id}
+                                        listingId={data.id}
                                         currentUser={currentUser}/>
                                 </div>
                         </div>

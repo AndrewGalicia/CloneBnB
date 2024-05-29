@@ -31,7 +31,7 @@ export default async function RootLayout({
           <RegisterModal />
           <NavBar currentUser={currentUser} />
         </ClientOnly>
-        <div className="pt-24 pb-20"> {/* Adjusted padding for the main content */}
+        <div className="pt-40 md:pt-30 pb-20"> {/* Adjusted padding for the main content */}
           {children}
         </div>
       </body>

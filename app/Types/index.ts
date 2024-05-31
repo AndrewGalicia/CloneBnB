@@ -22,6 +22,6 @@ User,
 {
     createdAT:string;
     updatedAT: string;
-    emailVerieid: string | null;
+    emailVerified: string | null;
 };
 

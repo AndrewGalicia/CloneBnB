@@ -4,11 +4,13 @@ interface IParams {
     listingId?: string;
 }
 
-export default async function getListingById(
-    params: IParams
-) {
+export default async function getListingById(params: IParams) {
     try {
-        const { listingId} = params
+        const { listingId } = params;
+
+        if (!listingId) {
+            throw new Error('No listingId provided');
+        }
 
         const listing = await prisma.listing.findUnique({
             where: {
@@ -23,18 +25,23 @@ export default async function getListingById(
             return null;
         }
 
+        const createdAt = listing.createdAt ? new Date(listing.createdAt).toISOString() : null;
+        const userCreatedAt = listing.user?.createdAT ? new Date(listing.user.createdAT).toISOString() : null;
+        const userUpdatedAt = listing.user?.updatedAT ? new Date(listing.user.updatedAT).toISOString() : null;
+        const userEmailVerified = listing.user?.emailVerified ? new Date(listing.user.emailVerified).toISOString() : null;
+
         return {
             ...listing,
-            createdAt: listing.createdAT.toISOString(),
+            createdAt,
             user: {
                 ...listing.user,
-                createdAt: listing.user.createdAT.toISOString(),
-                updatedAt: listing.user.updatedAT.toISOString(),
-                emailVerified:
-                    listing.user.emailVerified?.toISOString() || null,
+                createdAt: userCreatedAt,
+                updatedAt: userUpdatedAt,
+                emailVerified: userEmailVerified,
             }
         };
     } catch (error: any) {
-        throw new Error(error);
+        console.error('Error in getListingById:', error); // Log the error for debugging
+        throw new Error(error.message || 'Failed to fetch listing');
     }
 }

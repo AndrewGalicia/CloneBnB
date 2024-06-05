@@ -8,6 +8,8 @@ import LoginModal from "./components/modals/LoginModal";
 import RentModal from "./components/modals/RentModal"
 import ToasterProvider from "./providers/provider";
 import getCurrentUser from "./actions/getCurrentUser";
+import Search from "./components/NavBar/Search";
+import SearchModal from "./components/modals/SearchModa";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,6 +28,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ClientOnly>
           <ToasterProvider />
+          <SearchModal/>
           <RentModal />
           <LoginModal />
           <RegisterModal />

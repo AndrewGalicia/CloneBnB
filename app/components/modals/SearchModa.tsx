@@ -111,7 +111,7 @@ export default function SearchModal() {
                 }
             />
             <hr />
-            {location && <Map center={location?.latlng} />}
+            {location && <Map center={location.latlng as [number, number]} />}
         </div>
     );
 
@@ -156,7 +156,7 @@ export default function SearchModal() {
                     onChange={(value) => setGuestCount(value)}
                 />
             </div>
-        )
+        );
     }
 
     return (

@@ -25,7 +25,7 @@ export default async function getListingById(params: IParams) {
             return null;
         }
 
-        const createdAt = listing.createdAT ? new Date(listing.createdAt).toISOString() : null;
+        const createdAt = listing.createdAT ? new Date(listing.createdAT).toISOString() : null;
         const userCreatedAt = listing.user?.createdAT ? new Date(listing.user.createdAT).toISOString() : null;
         const userUpdatedAt = listing.user?.updatedAT ? new Date(listing.user.updatedAT).toISOString() : null;
         const userEmailVerified = listing.user?.emailVerified ? new Date(listing.user.emailVerified).toISOString() : null;

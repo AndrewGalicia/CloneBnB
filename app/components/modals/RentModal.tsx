@@ -262,7 +262,7 @@ const RentModal = () => {
         onClose={rentModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
         actionLabel={actionLabel}
-        secondaryLabel={secondaryActionLabel}
+        secondaryActionLabel={secondaryActionLabel}
         
         secondaryAction={step === STEPS.CATEGORY ? undefined: onBack}
         title="Airbnb your home"

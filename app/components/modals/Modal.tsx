@@ -27,7 +27,7 @@ export default function Modal({
   actionLabel,
   disabled = false,
   secondaryAction,
-  secondaryLabel,
+  secondaryActionLabel,
 }: ModalProps) {
   useEffect(() => {
     if (!isOpen) {

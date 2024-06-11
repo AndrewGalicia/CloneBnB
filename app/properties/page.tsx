@@ -35,11 +35,23 @@ const PropertiesPage = async () => {
         );
     }
 
+    const formattedListings = listings.map(listing => ({
+        ...listing,
+        createdAT: listing.createdAT.toISOString() // Convert Date to ISO string
+    }));
+
+    const formattedCurrentUser = currentUser ? {
+        ...currentUser,
+        createdAT: currentUser.createdAT.toISOString(),
+        updatedAT: currentUser.updatedAT,
+        emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+    } : null;
+
     return (
         <ClientOnly>
             <PropertiesClient
-                listings={listings}
-                currentUser={currentUser}
+                listings={formattedListings}
+                currentUser={formattedCurrentUser}
             />
         </ClientOnly>
     );

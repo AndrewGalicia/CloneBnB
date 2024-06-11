@@ -13,6 +13,13 @@ const Home = async({searchParams}: HomeProps) => {
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
+  const formattedCurrentUser = currentUser ? {
+    ...currentUser,
+    createdAT: currentUser.createdAT.toISOString(),
+    updatedAT: currentUser.updatedAT,
+    emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+} : null;
+
   if (listings.length === 0) {
     return (
       <ClientOnly>
@@ -40,7 +47,7 @@ const Home = async({searchParams}: HomeProps) => {
             {listings.map((listing: any) => {
               return(
                 <ListingCard
-                  currentUser={currentUser}
+                  currentUser={formattedCurrentUser}
                   key={listing.id}
                   data={listing}
                   />

@@ -6,8 +6,13 @@ import ReservationClient from "./ReservationClient";
 import { SafeReservation, SafeUser } from "@/app/Types";
 
 const Reservation = async () => {
-    const currentUser: SafeUser | null = await getCurrentUser();
-
+    const currentUser = await getCurrentUser();
+    const formattedCurrentUser = currentUser ? {
+        ...currentUser,
+        createdAT: currentUser.createdAT.toISOString(),
+        updatedAT: currentUser.updatedAT,
+        emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+    } : null;
     console.log('Current User:', currentUser);
 
     if (!currentUser) {
@@ -39,7 +44,7 @@ const Reservation = async () => {
         <ClientOnly>
             <ReservationClient
                 reservations={reservations}
-                currentUser={currentUser}
+                currentUser={formattedCurrentUser}
             />
         </ClientOnly>
     );

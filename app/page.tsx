@@ -1,41 +1,29 @@
 import getCurrentUser from "./actions/getCurrentUser";
 import getListings, { IListingsParams } from "./actions/getListings";
-import { useEffect, useState } from "react";
-import EmptyState from "./components/EmptyState";
 import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container/Container";
+import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/listings/ListingCard";
 
 interface HomeProps {
   searchParams: IListingsParams
 }
 
-const Home = ({ searchParams }: HomeProps) => {
-  const [listings, setListings] = useState<any[]>([]);
-  const [currentUser, setCurrentUser] = useState<any | null>(null);
+const Home = async({searchParams}: HomeProps) => {
+  const listings = await getListings(searchParams);
+  const currentUser = await getCurrentUser();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const currentUserData = await getCurrentUser();
-        setCurrentUser(currentUserData);
-
-        const listingsData = await getListings(searchParams);
-        setListings(listingsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [searchParams]);
+  const formattedCurrentUser = currentUser ? {
+    ...currentUser,
+    createdAT: currentUser.createdAT.toISOString(),
+    updatedAT: currentUser.updatedAT,
+    emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+} : null;
 
   if (listings.length === 0) {
     return (
       <ClientOnly>
-        <Container>
-          <EmptyState showReset />
-        </Container>
+        <EmptyState showReset />
       </ClientOnly>
     );
   }
@@ -43,7 +31,7 @@ const Home = ({ searchParams }: HomeProps) => {
   return (
     <ClientOnly>
       <Container>
-        <div className="pt-24 mt-16">
+        <div className="pt-24 mt-16"> {/* Adjust the top margin to ensure space below the Categories */}
           <div
             className="
               grid
@@ -56,18 +44,19 @@ const Home = ({ searchParams }: HomeProps) => {
               gap-8
             "
           >
-            {listings.map((listing: any) => (
-              <ListingCard
-                currentUser={currentUser}
-                key={listing.id}
-                data={listing}
-              />
-            ))}
+            {listings.map((listing: any) => {
+              return(
+                <ListingCard
+                  currentUser={formattedCurrentUser}
+                  key={listing.id}
+                  data={listing}
+                  />
+              )
+            })}
           </div>
         </div>
       </Container>
     </ClientOnly>
   );
 }
-
-export default Home;
+ export default Home;

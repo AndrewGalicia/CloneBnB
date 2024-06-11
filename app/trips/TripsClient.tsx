@@ -33,6 +33,8 @@ export default function TripsClient({reservations, currentUser}: TripsClientProp
             setDeletingId('');
         });
     },[router])
+
+    
     return(
         <Container>
             <Heading

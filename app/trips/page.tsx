@@ -34,11 +34,18 @@ const TripsPage = async () => {
         );
     }
 
+    const formattedCurrentUser = currentUser ? {
+        ...currentUser,
+        createdAT: currentUser.createdAT.toISOString(),
+        updatedAT: currentUser.updatedAT,
+        emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+    } : null;
+
     return (
         <ClientOnly>
             <TripsClient
                 reservations={reservations}
-                currentUser={currentUser}
+                currentUser={formattedCurrentUser}
             />
         </ClientOnly>
     );

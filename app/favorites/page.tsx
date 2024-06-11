@@ -9,7 +9,20 @@ const ListingPage = async() => {
     const listings = await getFavoriteListings();
     const currentUser = await getCurrentUser();
 
-    if (listings.length === 0) {
+     // Convert createdAt field to string
+     const formattedListings = listings.map(listing => ({
+        ...listing,
+        createdAT: listing.createdAT.toISOString() // Convert Date to ISO string
+    }));
+
+    const formattedCurrentUser = currentUser ? {
+        ...currentUser,
+        createdAT: currentUser.createdAT.toISOString(),
+        updatedAT: currentUser.updatedAT,
+        emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+    } : null;
+
+    if (formattedListings.length === 0) {
         return (
             <ClientOnly>
                 <EmptyState
@@ -21,8 +34,8 @@ const ListingPage = async() => {
     return (
         <ClientOnly>
             <FavoritesClient
-                listings={listings}
-                currentUser={currentUser}/>
+                listings={formattedListings}
+                currentUser={formattedCurrentUser}/>
         </ClientOnly>
     )
 }

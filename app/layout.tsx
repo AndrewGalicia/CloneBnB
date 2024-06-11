@@ -23,6 +23,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+
+  const formattedCurrentUser = currentUser ? {
+    ...currentUser,
+    createdAT: currentUser.createdAT.toISOString(),
+    updatedAT: currentUser.updatedAT,
+    emailVerified: currentUser.emailVerified ? currentUser.emailVerified : null
+} : null;
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -32,7 +39,7 @@ export default async function RootLayout({
           <RentModal />
           <LoginModal />
           <RegisterModal />
-          <NavBar currentUser={currentUser} />
+          <NavBar currentUser={formattedCurrentUser} />
         </ClientOnly>
         <div className="pt-40 md:pt-30 pb-20"> {/* Adjusted padding for the main content */}
           {children}
